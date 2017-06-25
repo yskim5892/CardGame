@@ -1,6 +1,6 @@
 import random
 
-class Pile:
+class Pile(Taggable, Valueable):
     def __init__(self):
         pass
 

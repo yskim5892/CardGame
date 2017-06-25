@@ -1,4 +1,6 @@
 import random
+from ThePlatform.Taggable import Taggable
+from ThePlatform.Valueable import Valueable
 
 class Pile(Taggable, Valueable):
     def __init__(self):

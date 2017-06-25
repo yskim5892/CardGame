@@ -1,6 +1,6 @@
 
 class GameData:
     def __init__(self):
-        pass
+        self.currentPlayerIndex = 0
     
     

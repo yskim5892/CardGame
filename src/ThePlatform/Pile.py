@@ -48,30 +48,31 @@ class Pile(Taggable, Valueable):
 
 
 
-def getInput(event):
-    c = event.char
-    if(c == 'a'):
-
-        a.setPos(480, 200)
-        a.view(canvas)
+#def getInput(event):
+#    c = event.char
+#    if(c == 'a'):
+#
+#        a.setPos(480, 200)
+#        a.view(canvas)
         
-    elif(c == 'b'):
+#    elif(c == 'b'):
         
-        a.setPos(480, 400)
-        a.setValue("ViewType", "horizontal")
-        a.view(canvas)
-a = Pile()
-for i in range(10):
-    card = Card()
-    card.width = 50
-    card.height = 90
-    a.addCard(card)
-root = Tk()
-root.resizable(width = False, height = False)
+#        a.setPos(480, 400)
+#        a.setValue("ViewType", "horizontal")
+#        a.view(canvas)
 
-canvas = Canvas(root, width=960, height=640)
-canvas.grid(row=0, column=0, sticky="WENS")
+#a = Pile()
+#for i in range(10):
+#    card = Card()
+#    card.width = 50
+#    card.height = 90
+#    a.addCard(card)
+#root = Tk()
+#root.resizable(width = False, height = False)
 
-canvas.focus_set()
-canvas.bind("<Key>", getInput)
-root.mainloop()
+#canvas = Canvas(root, width=960, height=640)
+#canvas.grid(row=0, column=0, sticky="WENS")
+
+#canvas.focus_set()
+#canvas.bind("<Key>", getInput)
+#root.mainloop()

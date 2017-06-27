@@ -30,5 +30,5 @@ class GameManager:
             self.gameData.currentPlayerIndex = (self.gameData.currentPlayerIndex + 1) % 2
             
             
-gameManager = GameManager()
-gameManager.startGame()
+#gameManager = GameManager()
+#gameManager.startGame()

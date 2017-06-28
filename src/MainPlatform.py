@@ -10,6 +10,14 @@ gamePkg = 0
 
 class MainPlatform:
     def __init__(self):
+        pass
+
+    def getVariableManager(self):
+        return self.scriptVariableManager
+
+    def getObjectManager(self):
+        return self.objectManager
+    def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
         self.objectManager = ThePlatform.ObjectManager.ObjectManager()
         
@@ -17,7 +25,7 @@ class MainPlatform:
         self.root.resizable(width = False, height = False)
         self.root.bind("<Key>", getInput)
 
-        self.canvas = Canvas(self.root, width=1000, height=800)
+        self.canvas = Canvas(self.root, width=1000, height=600)
         self.canvas.grid(row=0, column=0, sticky="WENS")
 
         self.canvas.bind("<B1-Motion>", B1Motion)
@@ -31,12 +39,6 @@ class MainPlatform:
         loadGameButton.config(text="Load game", command=LoadGameButton)
 
         self.root.mainloop()
-
-    def getVariableManager(self):
-        return self.scriptVariableManager
-
-    def getObjectManager(self):
-        return self.objectManager
 
 def B1Motion(event):
     global canvas
@@ -67,6 +69,7 @@ def getInput(key):
 def main():
     global m
     m = MainPlatform()
+    m.start()
 
 if __name__ == "__main__":
     main()

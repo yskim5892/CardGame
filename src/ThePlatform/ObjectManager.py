@@ -2,9 +2,11 @@
 # and functions about them
 from . import Pile
 from . import Card
+from . import Player
 class ObjectManager:
     def __init__(self):
         self.piles = []
+        self.players = {}
 
     def getPileByName(self, pileName):
         piles = [x for x in self.piles if x.getName() == pileName]
@@ -18,13 +20,22 @@ class ObjectManager:
                 if x.hasTags(tags) and x.checkValues(tags)]
 
     def makePile(self, pileName, tags=[], values=dict()):
-        self.piles.append(Pile.makePile(pileName, tags, values))
+        pile = Pile.makePile(pileName, tags, values)
+        self.piles.append(pile)
+        return pile
     
     def makeCard(self, width, height):
-        card = Card()
+        card = Card.Card()
         card.width = width
         card.height = height
         return card
+    
+    def makePlayer(self, playerName):
+        player = Player.Player()
+        self.players[playerName] = player
+        return player
+    def getPlayer(self, playerName):
+        return self.players[playerName]
     
     def moveCards(self, fromPileName, toPileName, indices):
         fromPile = self.getPileByName(fromPileName)

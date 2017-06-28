@@ -1,8 +1,8 @@
-from ThePlatform.Taggable import Taggable
-from ThePlatform.Valueable import Valueable
+from . import Taggable
+from . import Valueable
 from math import *
 
-class Card(Taggable, Valueable):
+class Card(Taggable.Taggable, Valueable.Valueable):
     def __init__(self):
         super(Card, self).__init__()
         self.pos = [0, 0]

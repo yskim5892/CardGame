@@ -1,7 +1,7 @@
 # storage for in-game objects (eg. Cards, Piles ...)
 # and functions about them
 
-import Pile
+from . import Pile
 
 class ObjectManager:
     def __init__(self):

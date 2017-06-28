@@ -12,3 +12,10 @@ class Taggable:
     def removeTag(self, tag):
         self.tags = self.tags - {tag}
 
+    def hasTags(self, tags):
+        if (set(tags) <= self.tags):
+            return True
+        else:
+            return False
+
+

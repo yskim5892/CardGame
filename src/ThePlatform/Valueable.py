@@ -16,3 +16,6 @@ class Valueable:
             del(self.values[name])
         except KeyError:
             return 0 
+
+    def checkValues(self, values):
+        return(all(x in self.values.items() for x in values.items()))

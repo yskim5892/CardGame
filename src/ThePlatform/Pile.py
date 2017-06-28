@@ -57,6 +57,8 @@ def makePile(pileName, tags=[], values=dict()):
     for (k, v) in values.items():
         p.setValue(k, v)
 
+    return p
+
 #def getInput(event):
 #    c = event.char
 #    if(c == 'a'):

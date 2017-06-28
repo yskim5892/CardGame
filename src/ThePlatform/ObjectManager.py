@@ -3,18 +3,21 @@
 
 import Pile
 
-piles = []
+class ObjectManager:
+    def __init__(self):
+        self.piles = []
 
-def getPileByName(pileName):
-    piles = [x for x in piles if x.getName() == pileName]
-    if (piles.len(0)):
-        print("No pile with the name: " + pileName)
-        return None
-    return piles[0]
+    def getPileByName(self, pileName):
+        piles = [x for x in self.piles if x.getName() == pileName]
+        if (piles.len(0)):
+            print("No pile with the name: " + pileName)
+            return None
+        return piles[0]
 
-def getPile(tags, values):
-    piles = [x for x in piles if x.hasTags(tags) and x.checkValues(tags)]
+    def getPile(self, tags, values):
+        piles = [x for x in self.piles 
+                if x.hasTags(tags) and x.checkValues(tags)]
 
-def makePile(pileName, tags=[], values=dict()):
-    piles.append(ThePlatform.Pile.Pile())
+    def makePile(self, pileName, tags=[], values=dict()):
+        self.piles.append(Pile.makePile(pileName, tags, values))
 

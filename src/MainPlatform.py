@@ -1,11 +1,11 @@
 from tkinter import *
 from tkinter import filedialog
-from math import *
 import sys
+import importlib
 
-import importlib.util
 import ThePlatform
 
+m = 0
 
 class MainPlatform:
     def __init__(self):
@@ -31,10 +31,10 @@ class MainPlatform:
 
         self.root.mainloop()
 
-    def getVariableManager():
+    def getVariableManager(self):
         return self.scriptVariableManager
 
-    def getObjectManager():
+    def getObjectManager(self):
         return self.objectManager
 
 def B1Motion(event):
@@ -55,12 +55,13 @@ def LoadGameButton():
     sys.path.append(gameDirectory)
     gameName = gameDirectory.split("/")[-1]
     gamePkg = importlib.import_module(gameName)
-    gamePkg.GameManager.initialize()
+    gamePkg.Initializer.initialize()
 
 def getInput(key):
     print("Key pressed!")
 
 def main():
+    global m
     m = MainPlatform()
 
 if __name__ == "__main__":

@@ -1,10 +1,10 @@
 import random
 from . import Taggable
 from . import Valueable
-from ThePlatform.Card import Card
+from . import Card
 from tkinter import *
 
-class Pile(Taggable, Valueable):
+class Pile(Taggable.Taggable, Valueable.Valueable):
     def __init__(self):
         super(Pile, self).__init__()
         self.cards = []

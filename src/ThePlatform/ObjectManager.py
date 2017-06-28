@@ -1,7 +1,7 @@
 # storage for in-game objects (eg. Cards, Piles ...)
 # and functions about them
-
-import Pile
+from . import Pile
+from ThePlatform.Card import Card
 
 class ObjectManager:
     def __init__(self):
@@ -20,4 +20,14 @@ class ObjectManager:
 
     def makePile(self, pileName, tags=[], values=dict()):
         self.piles.append(Pile.makePile(pileName, tags, values))
-
+    
+    def makeCard(self, width, height):
+        card = Card()
+        card.width = width
+        card.height = height
+        return card
+    
+    def moveCards(self, fromPileName, toPileName, indices):
+        fromPile = self.getPileByName(fromPileName)
+        toPile = self.getPileByName(toPileName)
+        for i in indices : toPile.addcard(fromPile.drawCard(i))

@@ -34,7 +34,7 @@ def LoadGameButton():
     sys.path.append(gameDirectory)
     gameName = gameDirectory.split("/")[-1]
     gamePkg = importlib.import_module(gameName)
-    #gamePkg.GameManager.initialize()
+    gamePkg.Initializer.initialize()
 
 def getInput(key):
     print("Key pressed!")

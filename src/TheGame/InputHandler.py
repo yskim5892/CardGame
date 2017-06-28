@@ -6,10 +6,10 @@ class InputHandler(object):
     def handleKeyInput(self, key):
         sv = ScripitVariableManager.getScriptVariable()
         if(key == 'e'):
-            if(sv["State"] == "takeActions"):
-                sv["CurrentPlayerIndex"] = (sv["CurrentPlayerIndex"] + 1) % 2
+            if(sv.getValue("State") == "takeActions"):
+                sv.setValue("CurrentPlayerIndex", (sv.getValue("CurrentPlayerIndex") + 1) % 2)
                 TurnManager.drawACard(sv)
         if('0' <= key & key <= '9'):
-            if(sv["State"] == "takeActions"):
+            if(sv.getValue("State") == "takeActions"):
                 TurnManager.takeActions(sv, key)
                 

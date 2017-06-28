@@ -1,6 +1,6 @@
 import random
-from ThePlatform.Taggable import Taggable
-from ThePlatform.Valueable import Valueable
+from . import Taggable
+from . import Valueable
 from ThePlatform.Card import Card
 from tkinter import *
 
@@ -15,8 +15,8 @@ class Pile(Taggable, Valueable):
     def addCard(self, card):
         self.cards.append(card)
 
-    def drawCard(self):
-        return self.cards.pop(-1)
+    def drawCard(self, index = -1):
+        return self.cards.pop(index)
 
     def setPos(self, x, y):
         self.pos[0] = x
@@ -43,10 +43,10 @@ class Pile(Taggable, Valueable):
         for i in range(num):
             self.viewCard(canvas, i)
 
-    def getName():
+    def getName(self):
         return self.name
 
-    def setName(name):
+    def setName(self, name):
         self.name = name
 
 def makePile(pileName, tags=[], values=dict()):

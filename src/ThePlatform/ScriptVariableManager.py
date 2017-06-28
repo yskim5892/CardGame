@@ -1,4 +1,7 @@
-class Valueable:
+# storage for in-game objects (eg. Cards, Piles ...)
+# and functions about them
+
+class ScriptVariableManager:
     def __init__(self):
         self.values = dict()
 
@@ -9,13 +12,14 @@ class Valueable:
         try:
             return self.values[name]
         except KeyError:
-            return None 
+            return None
 
     def removeValue(self, name):
         try:
             del(self.values[name])
         except KeyError:
             return None
-
+    
     def checkValues(self, values):
-        return(all(x in self.values.items() for x in values.items()))
+        return (all(x in self.values.items() for x in values.items()))
+

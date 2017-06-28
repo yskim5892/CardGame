@@ -8,8 +8,6 @@ class Pile(Taggable, Valueable):
     def __init__(self):
         super(Pile, self).__init__()
         self.cards = []
-        self.pos = [0, 0]
-        self.setValue("ViewType", "overlapped")
     
     def shuffle(self):
         random.shuffle(self.cards)
@@ -44,9 +42,22 @@ class Pile(Taggable, Valueable):
                 
         for i in range(num):
             self.viewCard(canvas, i)
-                
 
+    def getName():
+        return self.name
 
+    def setName(name):
+        self.name = name
+
+def makePile(pileName, tags=[], values=dict()):
+    p = Pile()
+    p.setName(pileName)
+    for tag in tags:
+        p.addTag(tag)
+    for (k, v) in values.items():
+        p.setValue(k, v)
+
+    return p
 
 #def getInput(event):
 #    c = event.char

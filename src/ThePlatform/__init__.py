@@ -1,3 +1,3 @@
-from . import Card, InputManager, Pile, Player, Taggable, Valueable
+from . import Card, InputManager, ObjectManager, Pile, Player, Taggable, Valueable
 
-__all__ = ["Card", "InputManager", "Pile", "Player", "Taggable", "Valueable"]
+__all__ = ["Card", "InputManager", "ObjectManager" "Pile", "Player", "Taggable", "Valueable"]

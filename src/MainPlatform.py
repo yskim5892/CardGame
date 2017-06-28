@@ -6,6 +6,7 @@ import importlib
 import ThePlatform
 
 m = 0
+gamePkg = 0
 
 class MainPlatform:
     def __init__(self):
@@ -51,6 +52,8 @@ def ButtonRelease1(event):
     print("Mouse released!")
 
 def LoadGameButton():
+    global gamePkg
+
     gameDirectory = filedialog.askdirectory()
     sys.path.append(gameDirectory)
     gameName = gameDirectory.split("/")[-1]
@@ -58,6 +61,7 @@ def LoadGameButton():
     gamePkg.Initializer.initialize()
 
 def getInput(key):
+    gamePkg.InputHandler.handleKeyInput(key)
     print("Key pressed!")
 
 def main():

@@ -19,6 +19,7 @@ class MainPlatform:
         om = self.objectManager
         if(self.gamePkg != 0):
             self.gamePkg.InputHandler.handleKeyInput(event.char, vm, om)
+            ThePlatform.ViewManager.ViewAllPile(om, self.canvas)
     def LoadGameButton(self):
         gameDirectory = filedialog.askdirectory()
         sys.path.append(gameDirectory)
@@ -27,6 +28,7 @@ class MainPlatform:
         self.gamePkg = importlib.import_module(gameName)
         self.log.insert(INSERT, gameName)
         self.gamePkg.Initializer.initialize(self.scriptVariableManager, self.objectManager)
+        ThePlatform.ViewManager.ViewAllPile(self.objectManager, self.canvas)
     def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
         self.objectManager = ThePlatform.ObjectManager.ObjectManager()
@@ -35,7 +37,7 @@ class MainPlatform:
         self.root.resizable(width = False, height = False)
         self.root.bind("<Key>", self.getInput)
 
-        self.canvas = Canvas(self.root, width=500, height=400)
+        self.canvas = Canvas(self.root, width=1000, height=400)
         self.canvas.grid(row=0, column=0, sticky="WENS")
 
         self.canvas.bind("<B1-Motion>", B1Motion)

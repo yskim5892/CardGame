@@ -47,6 +47,9 @@ class MainPlatform:
         loadGameButton.config(text="Load game", command=self.LoadGameButton)
 
         self.root.mainloop()
+    def triggerWhenCardsMoved(self, fromPile, toPile, cards):
+        fromPile.clear(self.canvas)
+        toPile.clear(self.canvas)
 
 def B1Motion(event):
     global canvas

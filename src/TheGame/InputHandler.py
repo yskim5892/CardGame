@@ -10,8 +10,3 @@ def handleKeyInput(key, vm, om, log):
     if('0' <= key and key <= '9'):
         if(vm.getValue("State") == "takeActions"):
             TurnManager.takeActions(int(key), vm, om, log)
-    if(key == 'h'):
-        print("Hi")
-class InputHandler(object):
-    def __init__(self, params):
-        pass

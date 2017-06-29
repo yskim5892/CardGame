@@ -23,10 +23,10 @@ class MainPlatform:
         self.viewManager.viewAllPile(self.objectManager)
     def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
-        self.objectManager = ThePlatform.ObjectManager.ObjectManager(self)
         self.root = Tk()
         self.canvas = Canvas(self.root, width=1000, height=400)
         self.viewManager = ThePlatform.ViewManager.ViewManager(self.canvas)
+        self.objectManager = ThePlatform.ObjectManager.ObjectManager(self)
         
         self.root.resizable(width = False, height = False)
         self.root.bind("<Key>", self.getInput)

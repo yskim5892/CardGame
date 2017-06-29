@@ -18,11 +18,15 @@ class ViewManager:
         num = len(pile.cards)
         for i in range(num):
             card = pile.cards[i]
-            if(pile.getValue("ViewType") == "overlapped"):
+            try:
+                if(pile.viewType == "overlapped"):
+                    card.setPos(0, 0)
+                    card.angle = 0
+                elif(pile.viewType == "horizontal"):
+                    card.setPos((i - (num-1)/2) * pile.cards[0].width, 0)
+                    card.angle = 0
+            except AttributeError:
                 card.setPos(0, 0)
-                card.angle = 0
-            elif(pile.getValue("ViewType") == "horizontal"):
-                card.setPos((i - (num-1)/2) * pile.cards[0].width, 0)
                 card.angle = 0
             cardPolygons.append(self.getCardPolygon(pile, i))
         return cardPolygons

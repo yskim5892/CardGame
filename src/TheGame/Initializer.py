@@ -9,19 +9,23 @@ def initialize(vm, om, log):
     vm.setValue("CurrentPlayerIndex", 1)
     startGame(vm, om, log)
 def initializePlayer(player, index, om):
-    hand = om.makePile("P" + str(index) + "Hand")
-    deck = om.makePile("P" + str(index) + "Deck")
+    handName = "P" + str(index) + "Hand"
+    deckName = "P" + str(index) + "Deck"
+    hand = om.makePile(handName)
+    deck = om.makePile(deckName)
     om.makePile("P" + str(index) + "DiscardPile")
-    for i in range(30): deck.addCard(om.makeCard(60, 90))
-    deck.shuffle()
-    deck.setPos(800, 160 * (index + 1))
-    deck.setValue("ViewType", "overlapped")
-    hand.setPos(400, 160 * (index + 1))
-    hand.setValue("ViewType", "horizontal")
+    for i in range(30): om.makeCard(deckName, 60, 90)
+    om.shufflePile(deckName)
+    om.setPosOfPile(deckName, 800, 160 * (index + 1))
+    om.setViewTypeOfPile(deckName, "overlapped")
+    om.setPosOfPile(handName, 400, 160 * (index + 1))
+    om.setViewTypeOfPile(handName, "horizontal")
     player.hands = {"Hand" : hand}
     player.decks = {"Deck" : deck}
     
 def startGame(vm, om, log):
-    om.getPlayer(0).draw("Deck", "Hand", 4)
-    om.getPlayer(1).draw("Deck", "Hand", 4)
+    for i in range(2):
+        handName = "P" + str(i) + "Hand"
+        deckName = "P" + str(i) + "Deck"
+        om.moveCards(deckName, handName, [-1, -2, -3, -4])
     TurnManager.drawACard(vm, om, log)

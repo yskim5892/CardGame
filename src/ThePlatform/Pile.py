@@ -7,6 +7,7 @@ from tkinter import *
 class Pile(Taggable.Taggable, Valueable.Valueable):
     def __init__(self):
         super(Pile, self).__init__()
+        self.pos = [0, 0]
         self.cards = []
     
     def shuffle(self):

@@ -14,11 +14,11 @@ class MainPlatform:
 
     def getObjectManager(self):
         return self.objectManager
-    def getInput(self, key):
+    def getInput(self, event):
         vm = self.scriptVariableManager
         om = self.objectManager
         if(self.gamePkg != 0):
-            self.gamePkg.InputHandler.handleKeyInput(key, vm, om)
+            self.gamePkg.InputHandler.handleKeyInput(event.char, vm, om)
     def LoadGameButton(self):
         gameDirectory = filedialog.askdirectory()
         sys.path.append(gameDirectory)

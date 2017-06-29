@@ -39,8 +39,14 @@ class ObjectManager:
         return self.players[index]
     
     def moveCards(self, fromPileName, toPileName, indices):
+        viewManager = self.mainPlatform.viewManager
         fromPile = self.getPileByName(fromPileName)
         toPile = self.getPileByName(toPileName)
+        viewManager.clearPile(fromPile)
+        viewManager.clearPile(toPile)
         cards = []
         for i in indices : cards.append(fromPile.drawCard(i))
         for card in cards : toPile.addCard(card)
+        viewManager.viewPile(fromPile)
+        viewManager.viewPile(toPile)
+        self.mainPlatform.triggerWhenCardsMoved(fromPile, toPile, cards)

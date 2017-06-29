@@ -13,23 +13,24 @@ class MainPlatform:
         om = self.objectManager
         if(self.gamePkg != 0):
             self.gamePkg.InputHandler.handleKeyInput(event.char, vm, om, self.log)
-            ThePlatform.ViewManager.viewAllPile(om, self.canvas)
+            self.viewManager.viewAllPile(om)
     def LoadGameButton(self):
         gameDirectory = filedialog.askdirectory()
         sys.path.append(gameDirectory)
         gameName = gameDirectory.split("/")[-1]
         self.gamePkg = importlib.import_module(gameName)
         self.gamePkg.Initializer.initialize(self.scriptVariableManager, self.objectManager, self.log)
-        ThePlatform.ViewManager.viewAllPile(self.objectManager, self.canvas)
+        self.viewManager.viewAllPile(self.objectManager)
     def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
         self.objectManager = ThePlatform.ObjectManager.ObjectManager(self)
-        
         self.root = Tk()
+        self.canvas = Canvas(self.root, width=1000, height=400)
+        self.viewManager = ThePlatform.ViewManager.ViewManager(self.canvas)
+        
         self.root.resizable(width = False, height = False)
         self.root.bind("<Key>", self.getInput)
 
-        self.canvas = Canvas(self.root, width=1000, height=400)
         self.canvas.grid(row=0, column=0, sticky="WENS")
 
         self.canvas.bind("<B1-Motion>", B1Motion)
@@ -48,8 +49,7 @@ class MainPlatform:
 
         self.root.mainloop()
     def triggerWhenCardsMoved(self, fromPile, toPile, cards):
-        fromPile.clear(self.canvas)
-        toPile.clear(self.canvas)
+        pass
 
 def B1Motion(event):
     global canvas

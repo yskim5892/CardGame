@@ -4,13 +4,14 @@ from . import Pile
 from . import Card
 from . import Player
 class ObjectManager:
-    def __init__(self):
+    def __init__(self, mainPlatform):
         self.piles = []
-        self.players = {}
+        self.players = []
+        self.mainPlatform = mainPlatform
 
     def getPileByName(self, pileName):
         piles = [x for x in self.piles if x.getName() == pileName]
-        if (piles.len(0)):
+        if (len(piles) == 0):
             print("No pile with the name: " + pileName)
             return None
         return piles[0]
@@ -32,12 +33,14 @@ class ObjectManager:
     
     def makePlayer(self, playerName):
         player = Player.Player()
-        self.players[playerName] = player
+        self.players.append(player)
         return player
-    def getPlayer(self, playerName):
-        return self.players[playerName]
+    def getPlayer(self, index):
+        return self.players[index]
     
     def moveCards(self, fromPileName, toPileName, indices):
         fromPile = self.getPileByName(fromPileName)
         toPile = self.getPileByName(toPileName)
-        for i in indices : toPile.addcard(fromPile.drawCard(i))
+        cards = []
+        for i in indices : cards.append(fromPile.drawCard(i))
+        for card in cards : toPile.addCard(card)

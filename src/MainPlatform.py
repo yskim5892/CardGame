@@ -8,30 +8,22 @@ import ThePlatform
 class MainPlatform:
     def __init__(self):
         pass
-
-    def getVariableManager(self):
-        return self.scriptVariableManager
-
-    def getObjectManager(self):
-        return self.objectManager
     def getInput(self, event):
         vm = self.scriptVariableManager
         om = self.objectManager
         if(self.gamePkg != 0):
-            self.gamePkg.InputHandler.handleKeyInput(event.char, vm, om)
-            ThePlatform.ViewManager.ViewAllPile(om, self.canvas)
+            self.gamePkg.InputHandler.handleKeyInput(event.char, vm, om, self.log)
+            ThePlatform.ViewManager.viewAllPile(om, self.canvas)
     def LoadGameButton(self):
         gameDirectory = filedialog.askdirectory()
         sys.path.append(gameDirectory)
         gameName = gameDirectory.split("/")[-1]
-        self.log.insert(INSERT, gameName)
         self.gamePkg = importlib.import_module(gameName)
-        self.log.insert(INSERT, gameName)
-        self.gamePkg.Initializer.initialize(self.scriptVariableManager, self.objectManager)
-        ThePlatform.ViewManager.ViewAllPile(self.objectManager, self.canvas)
+        self.gamePkg.Initializer.initialize(self.scriptVariableManager, self.objectManager, self.log)
+        ThePlatform.ViewManager.viewAllPile(self.objectManager, self.canvas)
     def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
-        self.objectManager = ThePlatform.ObjectManager.ObjectManager()
+        self.objectManager = ThePlatform.ObjectManager.ObjectManager(self)
         
         self.root = Tk()
         self.root.resizable(width = False, height = False)

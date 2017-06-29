@@ -1,22 +1,21 @@
 import MainPlatform
 
-def drawACard(self, vm, om):
-    playerIndex = vm["CurrenPlayerIndex"]
-    print("Player " + str(playerIndex) + "'s turn")
+def drawACard(vm, om, log):
+    playerIndex = vm.getValue("CurrentPlayerIndex")
+    log.insert('insert', "Player " + str(playerIndex) + "'s turn\n")
     vm.setValue("State", "drawACard")
-    player = om.getPlayers()[playerIndex]
+    player = om.getPlayer(playerIndex)
     player.draw("Deck", "Hand", 1)
     vm.setValue("State", "takeActions")
-def takeActions(self, key, vm, om):
-    playerIndex = vm.getValue("CurrenPlayerIndex")
-    player = om.getPlayers()[playerIndex]
-    playedCard = player.hands["Hand"].cards[int(key)]
-    print("Player " + str(playerIndex) + " played " + str(key))
+def takeActions(key, vm, om, log):
+    playerIndex = vm.getValue("CurrentPlayerIndex")
+    player = om.getPlayer(playerIndex)
+    playedCard = player.hands["Hand"].cards[key]
+    log.insert('insert', "Player " + str(playerIndex) + " played " + str(key) + '\n')
     
-    handPileName = "P" + str(key) + "Hand"
-    discardPileName = "P" + str(key) + "DiscardPile"
+    handPileName = "P" + str(playerIndex) + "Hand"
+    discardPileName = "P" + str(playerIndex) + "DiscardPile"
     om.moveCards(handPileName, discardPileName, [key])
-    player.hands["Hand"].cards.remove(playedCard)
 class TurnManager:
     def __init__(self):
         pass

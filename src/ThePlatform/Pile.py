@@ -15,9 +15,16 @@ class Pile(Taggable.Taggable, Valueable.Valueable):
 
     def addCard(self, card):
         self.cards.append(card)
-
-    def drawCard(self, index = -1):
-        return self.cards.pop(index)
+    
+    def removeCard(self, card):
+        if(card in self.cards):
+            self.cards.remove(card)
+            return True
+        else:
+            return False
+    
+    def containsCard(self, card):
+        return card in self.cards
 
     def setPos(self, x, y):
         self.pos[0] = x

@@ -28,3 +28,17 @@ class Card(Taggable.Taggable, Valueable.Valueable):
             rotatedPolygon = [(p.real, p.imag) for p in rotatedPolygonInComplex]
             rotatedAndTranslatedPolygon = [(p[0] + x, p[1] + y) for p in rotatedPolygon]
             return rotatedAndTranslatedPolygon
+    def getName(self):
+        return self.name
+
+    def setName(self, name):
+        self.name = name
+
+def makeCard(cardName, tags=[], values=dict()):
+    c = Card()
+    c.setName(cardName)
+    for tag in tags:
+        c.addTag(tag)
+    for (k, v) in values.items():
+        c.setValue(k, v)
+    return c

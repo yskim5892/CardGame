@@ -14,7 +14,7 @@ def initializePlayer(player, index, om):
     hand = om.makePile(handName)
     deck = om.makePile(deckName)
     om.makePile("P" + str(index) + "DiscardPile")
-    for i in range(30): om.makeCard(deckName, 60, 90)
+    for i in range(30): om.makeCard(deckName, "P" + str(index) + "C" + str(i), 60, 90)
     om.shufflePile(deckName)
     om.setPosOfPile(deckName, 800, 160 * (index + 1))
     om.setViewTypeOfPile(deckName, "overlapped")

@@ -21,21 +21,25 @@ class MainPlatform:
         self.gamePkg = importlib.import_module(gameName)
         self.gamePkg.Initializer.initialize(self.scriptVariableManager, self.objectManager, self.log)
         self.viewManager.viewAllPile(self.objectManager)
+    def onCardClicked(self, event):
+        vm = self.scriptVariableManager
+        om = self.objectManager
+        cardViewObject = event.widget.find_closest(event.x, event.y)
+        card = self.viewManager.cardDict[cardViewObject[0]]
+        cardName = card.getName()
+        self.gamePkg.InputHandler.handleCardClick(cardName, vm, om, self.log)
+            
     def start(self):
         self.scriptVariableManager = ThePlatform.ScriptVariableManager.ScriptVariableManager()
         self.root = Tk()
         self.canvas = Canvas(self.root, width=1000, height=400)
-        self.viewManager = ThePlatform.ViewManager.ViewManager(self.canvas)
+        self.viewManager = ThePlatform.ViewManager.ViewManager(self)
         self.objectManager = ThePlatform.ObjectManager.ObjectManager(self)
         
         self.root.resizable(width = False, height = False)
         self.root.bind("<Key>", self.getInput)
 
         self.canvas.grid(row=0, column=0, sticky="WENS")
-
-        self.canvas.bind("<B1-Motion>", B1Motion)
-        self.canvas.bind("<ButtonPress-1>", ButtonPress1)
-        self.canvas.bind("<ButtonRelease-1>", ButtonRelease1)
 
         self.canvas.focus_set()
         
@@ -50,19 +54,6 @@ class MainPlatform:
         self.root.mainloop()
     def triggerWhenCardsMoved(self, fromPile, toPile, cards):
         pass
-
-def B1Motion(event):
-    global canvas
-    global root
-    print("Mouse moved!")
-
-def ButtonPress1(event):
-    global canvas
-    global root
-    print("Mouse pressed!")
-
-def ButtonRelease1(event):
-    print("Mouse released!")
 
 
 

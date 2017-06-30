@@ -16,19 +16,35 @@ class ObjectManager:
             print("No pile with the name: " + pileName)
             return None
         return piles[0]
+    
+    def getCardByName(self, cardName):
+        cards = []
+        for pile in self.piles:
+            cardsToAppend = [x for x in pile.cards if x.getName() == cardName]
+            for card in cardsToAppend:
+                cards.append(card)
+        if (len(cards) == 0):
+            print("No pile with the name: " + cardName)
+            return None
+        return cards[0]
 
     def getPile(self, tags, values):
         piles = [x for x in self.piles 
                 if x.hasTags(tags) and x.checkValues(tags)]
+        
+    def cardIsInPile(self, cardName, pileName):
+        card = self.getCardByName(cardName)
+        pile = self.getPileByName(pileName)
+        return pile.containsCard(card)
 
     def makePile(self, pileName, tags=[], values=dict()):
         pile = Pile.makePile(pileName, tags, values)
         self.piles.append(pile)
         return pile
     
-    def makeCard(self, pileName, width, height):
+    def makeCard(self, pileName, cardName, width, height, tags=[], values=dict()):
         pile = self.getPileByName(pileName)
-        card = Card.Card()
+        card = Card.makeCard(cardName, tags, values)
         card.width = width
         card.height = height
         
@@ -52,8 +68,28 @@ class ObjectManager:
         self.viewManager.clearPile(fromPile)
         self.viewManager.clearPile(toPile)
         cards = []
-        for i in indices : cards.append(fromPile.drawCard(i))
+        for i in indices : 
+            cards.append(fromPile.cards[i])
+            fromPile.cards.remove(fromPile.cards[i])
         for card in cards : toPile.addCard(card)
+        self.viewManager.viewPile(fromPile)
+        self.viewManager.viewPile(toPile)
+        
+        self.mainPlatform.triggerWhenCardsMoved(fromPile, toPile, cards)
+        
+    def moveCardsByName(self, fromPileName, toPileName, cardNames):
+        fromPile = self.getPileByName(fromPileName)
+        toPile = self.getPileByName(toPileName)
+        
+        self.viewManager.clearPile(fromPile)
+        self.viewManager.clearPile(toPile)
+        
+        cards = []
+        for cardName in cardNames : cards.append(self.getCardByName(cardName))
+        for card in cards : 
+            if(fromPile.removeCard(card)):
+                toPile.addCard(card)
+        
         self.viewManager.viewPile(fromPile)
         self.viewManager.viewPile(toPile)
         

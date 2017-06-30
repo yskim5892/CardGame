@@ -1,7 +1,9 @@
 
 class ViewManager:
-    def __init__(self, canvas):
-        self.canvas = canvas
+    def __init__(self, mainPlatform):
+        self.mainPlatform = mainPlatform
+        self.canvas = mainPlatform.canvas
+        self.cardDict = {}
     def viewAllPile(self, om):
         for pile in om.piles:
             self.viewPile(pile)
@@ -36,7 +38,10 @@ class ViewManager:
         cardPolygons = self.getCardPolygons(pile)
         num = len(pile.cards)
         for i in range(num):
-            pile.cards[i].viewObject = self.canvas.create_polygon(cardPolygons[i], outline="#000000", fill="#cccccc")
+            viewObject = self.canvas.create_polygon(cardPolygons[i], outline="#000000", fill="#cccccc")
+            self.cardDict[viewObject] = pile.cards[i]
+            self.canvas.tag_bind(viewObject, '<ButtonPress-1>', self.mainPlatform.onCardClicked)
+            pile.cards[i].viewObject = viewObject   
     
     def clearPile(self, pile):
         for card in pile.cards:

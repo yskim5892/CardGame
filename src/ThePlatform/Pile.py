@@ -45,32 +45,3 @@ def makePile(pileName, tags=[], values=dict()):
         p.setValue(k, v)
 
     return p
-
-#def getInput(event):
-#    c = event.char
-#    if(c == 'a'):
-#
-#        a.setPos(480, 200)
-#        a.view(canvas)
-        
-#    elif(c == 'b'):
-        
-#        a.setPos(480, 400)
-#        a.setValue("ViewType", "horizontal")
-#        a.view(canvas)
-
-#a = Pile()
-#for i in range(10):
-#    card = Card()
-#    card.width = 50
-#    card.height = 90
-#    a.addCard(card)
-#root = Tk()
-#root.resizable(width = False, height = False)
-
-#canvas = Canvas(root, width=960, height=640)
-#canvas.grid(row=0, column=0, sticky="WENS")
-
-#canvas.focus_set()
-#canvas.bind("<Key>", getInput)
-#root.mainloop()

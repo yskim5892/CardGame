@@ -20,16 +20,15 @@ class ViewManager:
         num = len(pile.cards)
         for i in range(num):
             card = pile.cards[i]
-            try:
-                if(pile.viewType == "overlapped"):
+            if(card != self.mainPlatform.selectedCard):
+                try:
+                    if(pile.viewType == "overlapped"):
+                        card.setPos(0, 0)
+                    elif(pile.viewType == "horizontal"):
+                        card.setPos((i - (num-1)/2) * pile.cards[0].width, 0)
+                except AttributeError:
                     card.setPos(0, 0)
-                    card.angle = 0
-                elif(pile.viewType == "horizontal"):
-                    card.setPos((i - (num-1)/2) * pile.cards[0].width, 0)
-                    card.angle = 0
-            except AttributeError:
-                card.setPos(0, 0)
-                card.angle = 0
+            card.angle = 0
             cardPolygons.append(self.getCardPolygon(pile, i))
         return cardPolygons
             
@@ -40,8 +39,10 @@ class ViewManager:
         for i in range(num):
             viewObject = self.canvas.create_polygon(cardPolygons[i], outline="#000000", fill="#cccccc")
             self.cardDict[viewObject] = pile.cards[i]
-            self.canvas.tag_bind(viewObject, '<ButtonPress-1>', self.mainPlatform.onCardClicked)
-            pile.cards[i].viewObject = viewObject   
+            self.canvas.tag_bind(viewObject, '<ButtonPress-1>', self.mainPlatform.onCardPressed)
+            self.canvas.tag_bind(viewObject, '<B1-Motion>', self.mainPlatform.onCardMoved)
+            self.canvas.tag_bind(viewObject, '<ButtonRelease-1>', self.mainPlatform.onCardReleased)
+            pile.cards[i].viewObject = viewObject
     
     def clearPile(self, pile):
         for card in pile.cards:

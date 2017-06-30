@@ -7,10 +7,13 @@ def handleKeyInput(key, vm, om, log):
             index = vm.getValue("CurrentPlayerIndex")
             vm.setValue("CurrentPlayerIndex", (index + 1) % 2)
             TurnManager.drawACard(vm, om, log)
-            
-def handleCardClick(cardName, vm, om, log):
-    if(vm.getValue("State") == "takeActions"):
-        index = vm.getValue("CurrentPlayerIndex")
-        handName = "P" + str(index) + "Hand"
-        if(om.cardIsInPile(cardName, handName)):
-            TurnManager.takeActions(cardName, vm, om, log)
+
+def checkCardClickable(cardName, vm, om, log):
+    handName = "P" + str(vm.getValue("CurrentPlayerIndex")) + "Hand"
+    return om.cardIsInPile(cardName, handName) & (vm.getValue("State") == "takeActions")
+
+def handleCardPress(cardName, vm, om, log):
+    pass
+    
+def handleCardRelease(cardName, vm, om, log):
+    TurnManager.takeActions(cardName, vm, om, log)

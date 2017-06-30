@@ -35,7 +35,7 @@ class ObjectManager:
     def cardIsInPile(self, cardName, pileName):
         card = self.getCardByName(cardName)
         pile = self.getPileByName(pileName)
-        return pile.containsCard(card)
+        return card.pile == pile
 
     def makePile(self, pileName, tags=[], values=dict()):
         pile = Pile.makePile(pileName, tags, values)
@@ -47,6 +47,7 @@ class ObjectManager:
         card = Card.makeCard(cardName, tags, values)
         card.width = width
         card.height = height
+        card.pile = pile
         
         self.viewManager.clearPile(pile)
         pile.addCard(card)
@@ -58,6 +59,7 @@ class ObjectManager:
         player = Player.Player()
         self.players.append(player)
         return player
+    
     def getPlayer(self, index):
         return self.players[index]
     
@@ -71,7 +73,9 @@ class ObjectManager:
         for i in indices : 
             cards.append(fromPile.cards[i])
             fromPile.cards.remove(fromPile.cards[i])
-        for card in cards : toPile.addCard(card)
+        for card in cards : 
+            toPile.addCard(card)
+            card.pile = toPile
         self.viewManager.viewPile(fromPile)
         self.viewManager.viewPile(toPile)
         
@@ -89,6 +93,7 @@ class ObjectManager:
         for card in cards : 
             if(fromPile.removeCard(card)):
                 toPile.addCard(card)
+                card.pile = toPile
         
         self.viewManager.viewPile(fromPile)
         self.viewManager.viewPile(toPile)

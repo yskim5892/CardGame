@@ -31,18 +31,25 @@ class ViewManager:
             card.angle = 0
             cardPolygons.append(self.getCardPolygon(pile, i))
         return cardPolygons
-            
+    
     def viewPile(self, pile):
-        self.clearPile(pile)
         cardPolygons = self.getCardPolygons(pile)
-        num = len(pile.cards)
-        for i in range(num):
-            viewObject = self.canvas.create_polygon(cardPolygons[i], outline="#000000", fill="#cccccc")
-            self.cardDict[viewObject] = pile.cards[i]
-            self.canvas.tag_bind(viewObject, '<ButtonPress-1>', self.mainPlatform.onCardPressed)
-            self.canvas.tag_bind(viewObject, '<B1-Motion>', self.mainPlatform.onCardMoved)
-            self.canvas.tag_bind(viewObject, '<ButtonRelease-1>', self.mainPlatform.onCardReleased)
-            pile.cards[i].viewObject = viewObject
+        for i in range(len(pile.cards)):
+            card = pile.cards[i]
+            try:
+                viewObject = card.viewObject
+                cardCoords = []
+                for coord in cardPolygons[i]:
+                    cardCoords.append(coord[0])
+                    cardCoords.append(coord[1])
+                self.canvas.coords(viewObject, *cardCoords)
+            except AttributeError:    
+                viewObject = self.canvas.create_polygon(cardPolygons[i], outline="#000000", fill="#cccccc")
+                self.cardDict[viewObject] = pile.cards[i]
+                self.canvas.tag_bind(viewObject, '<ButtonPress-1>', self.mainPlatform.onCardPressed)
+                self.canvas.tag_bind(viewObject, '<B1-Motion>', self.mainPlatform.onCardMoved)
+                self.canvas.tag_bind(viewObject, '<ButtonRelease-1>', self.mainPlatform.onCardReleased)
+                pile.cards[i].viewObject = viewObject
     
     def clearPile(self, pile):
         for card in pile.cards:

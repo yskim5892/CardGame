@@ -49,7 +49,6 @@ class ObjectManager:
         card.height = height
         card.pile = pile
         
-        self.viewManager.clearPile(pile)
         pile.addCard(card)
         self.viewManager.viewPile(pile)
         
@@ -67,8 +66,6 @@ class ObjectManager:
         fromPile = self.getPileByName(fromPileName)
         toPile = self.getPileByName(toPileName)
         
-        self.viewManager.clearPile(fromPile)
-        self.viewManager.clearPile(toPile)
         cards = []
         for i in indices : 
             cards.append(fromPile.cards[i])
@@ -85,9 +82,6 @@ class ObjectManager:
         fromPile = self.getPileByName(fromPileName)
         toPile = self.getPileByName(toPileName)
         
-        self.viewManager.clearPile(fromPile)
-        self.viewManager.clearPile(toPile)
-        
         cards = []
         for cardName in cardNames : cards.append(self.getCardByName(cardName))
         for card in cards : 
@@ -103,20 +97,17 @@ class ObjectManager:
     def shufflePile(self, PileName):
         pile = self.getPileByName(PileName)
         
-        self.viewManager.clearPile(pile)
         pile.shuffle()
         self.viewManager.viewPile(pile)
     
     def setPosOfPile(self, PileName, x, y):
         pile = self.getPileByName(PileName)
         
-        self.viewManager.clearPile(pile)
         pile.setPos(x, y)
         self.viewManager.viewPile(pile)
         
     def setViewTypeOfPile(self, PileName, viewType):
         pile = self.getPileByName(PileName)
         
-        self.viewManager.clearPile(pile)
         pile.viewType = viewType
         self.viewManager.viewPile(pile)

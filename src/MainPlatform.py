@@ -45,6 +45,7 @@ class MainPlatform:
         self.viewManager.viewAllPile(self.objectManager)
     def onCardPressed(self, event):
         vm = self.scriptVariableManager
+        
         om = self.objectManager
         cardViewObject = event.widget.find_closest(event.x, event.y)
         card = self.viewManager.cardDict[cardViewObject[0]]
